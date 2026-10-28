@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>РУСЛАН КАМАЗОВ — официальный сайт</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rubik:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050507;
+            --card: #0f1116;
+            --ice: #dff3ff;
+            --blue: #6fd0ff;
+            --red: #ff2b3d;
+            --mut: #8a93a0;
+            color-scheme: dark;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+            scroll-behavior: smooth
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ice);
+            font: 400 17px/1.5 Rubik, Arial, sans-serif;
+            overflow-x: hidden
+        }
+
+        h1,
+        h2,
+        h3,
+        .bb {
+            font-family: Oswald, Impact, "Arial Narrow", sans-serif;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: .95
+        }
+
+        a {
+            color: inherit
+        }
+
+        #load {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            text-align: center;
+            padding: 20px
+        }
+
+        #load .n {
+            font: 700 clamp(64px, 22vw, 150px)/1 Oswald, Impact, sans-serif;
+            color: var(--blue)
+        }
+
+        #load p {
+            color: var(--mut);
+            margin: 0
+        }
+
+        .bar {
+            width: min(320px, 80vw);
+            height: 6px;
+            background: #222
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--blue);
+            width: 0
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: rgba(5, 5, 7, .88);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #1d2028
+        }
+
+        nav b {
+            font: 700 22px Oswald, Impact, sans-serif;
+            letter-spacing: .04em
+        }
+
+        nav div {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: nowrap
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--mut)
+        }
+
+        nav a:hover {
+            color: var(--blue)
+        }
+
+        .tick {
+            background: var(--red);
+            color: #fff;
+            overflow: hidden;
+            white-space: nowrap;
+            font: 700 15px Oswald, sans-serif;
+            text-transform: uppercase;
+            padding: 6px 0
+        }
+
+        .tick span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: mq 28s linear infinite
+        }
+
+        @keyframes mq {
+            to {
+                transform: translateX(-100%)
+            }
+        }
+
+        .hero {
+            position: relative;
+            min-height: 88vh;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            align-items: end;
+            gap: 10px;
+            padding: 40px 20px 0;
+            max-width: 1180px;
+            margin: 0 auto;
+            overflow: hidden
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 13vw, 170px);
+            letter-spacing: -.01em;
+            grid-column: 1;
+            align-self: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 40px rgba(111, 208, 255, .35)
+        }
+
+        .hero h1 small {
+            display: block;
+            font-size: .28em;
+            color: var(--blue);
+            letter-spacing: .12em;
+            margin-top: 14px
+        }
+
+        .hero .ph {
+            grid-column: 2;
+            grid-row: 1/3;
+            position: relative;
+            align-self: end
+        }
+
+        .hero .ph img {
+            width: 100%;
+            display: block;
+            filter: contrast(1.05);
+            mask-image: linear-gradient(#000 80%, transparent)
+        }
+
+        .hero .acts {
+            grid-column: 1;
+            padding-bottom: 50px;
+            position: relative;
+            z-index: 2
+        }
+
+        .btn {
+            font: 700 18px Oswald, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            background: var(--ice);
+            color: #000;
+            border: 0;
+            padding: 14px 28px;
+            cursor: pointer;
+            margin: 0 10px 10px 0
+        }
+
+        .btn:hover {
+            background: var(--blue)
+        }
+
+        .btn.o {
+            background: none;
+            color: var(--ice);
+            border: 2px solid var(--ice)
+        }
+
+        .btn:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 2px
+        }
+
+        #err {
+            color: var(--red);
+            min-height: 1.5em;
+            font-weight: 600
+        }
+
+        .chain {
+            position: absolute;
+            left: 46%;
+            bottom: 6%;
+            width: 14%;
+            aspect-ratio: 1;
+            cursor: pointer;
+            background: none;
+            border: 0
+        }
+
+        section {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 70px 20px
+        }
+
+        h2 {
+            font-size: clamp(40px, 8vw, 84px);
+            margin-bottom: 28px
+        }
+
+        h2 em {
+            font-style: normal;
+            color: var(--red)
+        }
+
+        .alb {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px
+        }
+
+        .cov {
+            aspect-ratio: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #2a2f3a
+        }
+
+        .cov b {
+            font: 700 30px/1 Oswald, sans-serif;
+            text-transform: uppercase
+        }
+
+        .cov span {
+            font-size: 13px;
+            opacity: .85
+        }
+
+        .c1 {
+            background: linear-gradient(135deg, #0a2b3d, #000)
+        }
+
+        .c2 {
+            background: linear-gradient(135deg, #3d0a12, #000)
+        }
+
+        .c3 {
+            background: linear-gradient(135deg, #d8e8f0, #7fa0b4);
+            color: #000
+        }
+
+        .c4 {
+            background: repeating-linear-gradient(45deg, #111, #111 12px, #191b22 12px, #191b22 24px)
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 110px 1fr auto;
+            gap: 14px;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #1d2028
+        }
+
+        .row .d {
+            font: 700 24px Oswald, sans-serif
+        }
+
+        .row .t {
+            font-size: 14px;
+            color: var(--mut);
+            display: block
+        }
+
+        .tag {
+            font: 700 14px Oswald, sans-serif;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border: 1px solid var(--red);
+            color: var(--red);
+            white-space: nowrap
+        }
+
+        .gal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .gal figure {
+            margin: 0;
+            background: var(--card);
+            padding: 10px
+        }
+
+        .gal img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 3/4;
+            object-fit: cover
+        }
+
+        .gal figcaption {
+            padding: 10px 4px 2px;
+            font-size: 15px
+        }
+
+        .gal .rot {
+            transform: rotate(1.5deg)
+        }
+
+        .gal .rot2 {
+            transform: rotate(-1.5deg)
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px
+        }
+
+        .st {
+            background: var(--card);
+            padding: 22px;
+            border-left: 4px solid var(--blue)
+        }
+
+        .st .big {
+            font: 700 clamp(48px, 9vw, 76px)/1 Oswald, sans-serif;
+            color: var(--blue)
+        }
+
+        .st p {
+            margin: 6px 0 0;
+            color: var(--mut);
+            font-size: 15px
+        }
+
+        .meter {
+            height: 12px;
+            background: #222;
+            margin-top: 10px
+        }
+
+        .meter i {
+            display: block;
+            height: 100%;
+            background: var(--red)
+        }
+
+        .rev {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px
+        }
+
+        blockquote {
+            margin: 0;
+            background: var(--card);
+            padding: 22px;
+            font-size: 18px
+        }
+
+        blockquote cite {
+            display: block;
+            margin-top: 12px;
+            color: var(--blue);
+            font-style: normal;
+            font-size: 14px
+        }
+
+        .merch {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px
+        }
+
+        .mi {
+            background: var(--card);
+            padding: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        .mi b {
+            font: 700 26px/1 Oswald, sans-serif;
+            text-transform: uppercase
+        }
+
+        .mi .p {
+            color: var(--blue);
+            font: 700 22px Oswald, sans-serif
+        }
+
+        .run {
+            position: relative;
+            transition: transform .18s
+        }
+
+        .bk {
+            display: grid;
+            gap: 12px;
+            max-width: 520px
+        }
+
+        input,
+        select {
+            background: #0b0d12;
+            border: 1px solid #2a2f3a;
+            color: var(--ice);
+            padding: 13px;
+            font: inherit;
+            width: 100%
+        }
+
+        #ans {
+            min-height: 3em;
+            color: var(--red);
+            font-weight: 600
+        }
+
+        footer {
+            text-align: center;
+            color: var(--mut);
+            padding: 50px 20px 70px;
+            font-size: 14px;
+            border-top: 1px solid #1d2028
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            transform: translateX(-50%);
+            background: var(--red);
+            color: #fff;
+            padding: 12px 20px;
+            font-weight: 600;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s;
+            max-width: 90vw;
+            text-align: center
+        }
+
+        @media(max-width:760px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: 0
+            }
+
+            .hero .ph {
+                grid-column: 1;
+                grid-row: auto;
+                order: 2
+            }
+
+            .hero .acts {
+                grid-column: 1;
+                padding-bottom: 10px
+            }
+
+            .row {
+                grid-template-columns: 1fr auto
+            }
+
+            .row .d {
+                grid-column: 1/3
+            }
+
+            .gal {
+                grid-template-columns: 1fr
+            }
+
+            .chain {
+                left: 44%;
+                bottom: 5%;
+                width: 18%
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .tick span {
+                animation: none;
+                padding-left: 0
+            }
+
+            html {
+                scroll-behavior: auto
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="load">
+        <div class="n" id="pc">0%</div>
+        <div class="bar"><i id="bi"></i></div>
+        <p id="lt">Руслан просыпается…</p>
+    </div>
+
+    <div class="tick"><span>СРОЧНО: Камазов замечен в университете (ложная тревога) ★ Староста: «я его не видел» ★ Новый
+            альбом «Пропущу пару» уже в твоей голове ★ Цепь «R» застрахована, посещаемость — нет ★ Преподаватель
+            выпустил заявление: «Мы скучаем (нет)» ★</span></div>
+    <nav><b>R.К.</b>
+        <div><a href="#music">Дискография</a><a href="#tour">Тур</a><a href="#foto">Фото</a><a
+                href="#stat">Статистика</a><a href="#merch">Мерч</a><a href="#book">Заказать</a></div>
+    </nav>
+
+    <header class="hero">
+        <h1>Руслан Камазов<small>Новый альбом «Пропущу пару» — релиз: когда проснусь</small></h1>
+        <div class="ph">
+            <img src="img/ruslan_feduk.png" alt="Руслан в очках и цепи с буквой R">
+            <button class="chain" id="chain" aria-label="Цепь с буквой R"></button>
+        </div>
+        <div class="acts">
+            <button class="btn" id="play">▶ Слушать</button><button class="btn o" id="alarmbtn">Кликни на цепь</button>
+            <div id="err" role="status"></div>
+        </div>
+    </header>
+
+    <section id="music">
+        <h2>Дискография <em>прогулов</em></h2>
+        <div class="alb">
+            <div class="cov c1"><b>Будильник не слышу</b><span>Альбом · 2024 · 312 пропусков</span></div>
+            <div class="cov c2"><b>Староста, не пиши</b><span>Сингл · feat. совесть (не пришла)</span></div>
+            <div class="cov c3"><b>Пятая пара подряд</b><span>feat. подушка · платина</span></div>
+            <div class="cov c4"><b>Автомат не светит</b><span>Мини-альбом · скоро пересдача</span></div>
+        </div>
+    </section>
+
+    <section id="tour">
+        <h2>Тур <em>«Где ты?»</em></h2>
+        <div class="row">
+            <div><span class="d">ПН</span><span class="t">Ауд. 312</span></div>
+            <div>Матанализ, 1 пара</div><span class="tag">Sold out · он не пришёл</span>
+        </div>
+        <div class="row">
+            <div><span class="d">ВТ</span><span class="t">Ауд. 104</span></div>
+            <div>Физика, лекция</div><span class="tag">Отмена · спит</span>
+        </div>
+        <div class="row">
+            <div><span class="d">СР</span><span class="t">Ауд. 201</span></div>
+            <div>Семинар (посещаемость учитывается!)</div><span class="tag">Отмена · «заболел»</span>
+        </div>
+        <div class="row">
+            <div><span class="d">ЧТ</span><span class="t">Онлайн</span></div>
+            <div>Zoom-пара, камера выключена</div><span class="tag">В сети · не в курсе</span>
+        </div>
+        <div class="row">
+            <div><span class="d">ПТ</span><span class="t">Ауд. ???</span></div>
+            <div>Зачёт</div><span class="tag">Сюрприз для всех</span>
+        </div>
+    </section>
+
+    <section id="foto">
+        <h2>Фото <em>из студии</em></h2>
+        <div class="gal">
+            <figure class="rot">
+                <img src="img/rap_on_the_bed.png" alt="Руслан лежит на кровати в очках">
+                <figcaption>«Подготовка к лекции в горизонтальном формате»</figcaption>
+            </figure>
+            <figure class="rot2">
+                <img src="img/ruslan_feduk.png" alt="Руслан показывает жест">
+                <figcaption>Когда препод спросил, где домашка</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="stat">
+        <h2>Цифры <em>карьеры</em></h2>
+        <div class="stats">
+            <div class="st">
+                <div class="big" id="skip">247</div>
+                <p>Пар пропущено (счётчик идёт сам, пока ты читаешь)</p>
+            </div>
+            <div class="st">
+                <div class="big">3%</div>
+                <p>Посещаемость
+                <div class="meter"><i style="width:3%"></i></div>
+                </p>
+            </div>
+            <div class="st">
+                <div class="big">∞</div>
+                <p>Уровень лени
+                <div class="meter"><i style="width:100%"></i></div>
+                </p>
+            </div>
+            <div class="st">
+                <div class="big">0</div>
+                <p>Раз сказал «я уже еду», когда реально ехал</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rev">
+        <h2>Что <em>говорят</em></h2>
+        <div class="rev">
+            <blockquote>«Я его в списке вижу, а в аудитории нет.»<cite>— Преподаватель</cite></blockquote>
+            <blockquote>«Я уже не знаю, как его отмечать.»<cite>— Староста</cite></blockquote>
+            <blockquote>«Звоню третий раз. Он «в метро». Метро в его городе нет.»<cite>— Деканат</cite></blockquote>
+            <blockquote>«Руслан, вставай, у тебя же пара!»<cite>— Мама</cite></blockquote>
+        </div>
+    </section>
+
+    <section id="merch">
+        <h2>Мерч <em>тур</em></h2>
+        <div class="merch">
+            <div class="mi"><b>Худи «Я на паре» (нет)</b><span class="p">3 990 ₽</span></div>
+            <div class="mi"><b>Цепь «R» (пластик, но с душой)</b><span class="p">990 ₽</span></div>
+            <div class="mi"><b>Справка о болезни, 5 штук</b><span class="p">5 000 ₽</span></div>
+            <div class="mi"><b>Подушка с лошадками (оригинал)</b><span class="p">Бесценна</span></div>
+        </div>
+        <p style="margin-top:26px"><button class="btn run" id="buy">Купить всё</button></p>
+    </section>
+
+    <section id="book">
+        <h2>Заказать Руслана <em>на пару</em></h2>
+        <div class="bk">
+            <input id="nm" placeholder="Твоё имя" aria-label="Имя">
+            <select id="ev" aria-label="Событие">
+                <option>Лекция</option>
+                <option>Семинар</option>
+                <option>Контрольная</option>
+                <option>Защита курсовой</option>
+            </select>
+            <input id="dt" type="date" aria-label="Дата">
+            <button class="btn" id="go">Отправить заявку</button>
+            <div id="ans" role="status"></div>
+        </div>
+    </section>
+
+    <footer>© 2026 Руслан Камазов Records. Все пары пропущены.<br>Сайт сделан с любовью одногруппников. Руслан, мы
+        шутим, приходи на пары 🤝</footer>
+    <div id="toast"></div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+        const msgs = ["Руслан просыпается…", "Руслан ищет носки…", "Руслан передумал вставать…", "Руслан снова лёг…"];
+        let p = 0, li = 0; const iv = setInterval(() => {
+            p += p < 60 ? 3 : (p < 90 ? 1 : 0.4); if (p >= 99) { p = 99; }
+            $('pc').textContent = Math.floor(p) + '%'; $('bi').style.width = p + '%'; $('lt').textContent = msgs[Math.min(3, Math.floor(p / 26))];
+            if (p >= 99) { clearInterval(iv); $('lt').textContent = 'Руслан наконец проснулся. Заходи!'; setTimeout(() => { $('load').style.display = 'none' }, 900) }
+        }, 60);
+        let skip = 247; setInterval(() => { skip++; $('skip').textContent = skip }, 4000);
+        function toast(t) { const e = $('toast'); e.textContent = t; e.style.opacity = 1; clearTimeout(toast.t); toast.t = setTimeout(() => e.style.opacity = 0, 2600) }
+        const errs = ["Ошибка 404: артист на паре не найден", "Трек не загрузился: Руслан спит", "Воспроизведение невозможно: будильник не заведён", "Нет доступа: артист ушёл в «студию» (кровать)"]; let ei = 0;
+        $('play').onclick = () => { $('err').textContent = errs[ei++ % errs.length] };
+        function alarm() { try { const c = new (window.AudioContext || window.webkitAudioContext)(); let t = c.currentTime; for (let i = 0; i < 6; i++) { const o = c.createOscillator(), g = c.createGain(); o.type = 'square'; o.frequency.value = i % 2 ? 880 : 660; g.gain.value = .06; o.connect(g); g.connect(c.destination); o.start(t + i * .22); o.stop(t + i * .22 + .14) } } catch (e) { } toast('⏰ ПОДЪЁМ! У тебя пара! (он не слышит)') }
+        $('chain').onclick = alarm; $('alarmbtn').onclick = alarm;
+        let tries = 0; const b = $('buy');
+        function dodge(e) { if (tries >= 6) return; e.preventDefault(); tries++; b.style.transform = `translate(${(Math.random() - .5) * Math.min(300, innerWidth - 120)}px,${(Math.random() - .5) * 120}px)`; if (tries == 6) { b.style.transform = 'none'; b.textContent = 'Ладно, купил. Оплата: пара за тебя' } }
+        b.addEventListener('mouseenter', dodge); b.addEventListener('touchstart', dodge, { passive: false });
+        b.onclick = () => { toast(tries < 6 ? 'Кнопка устала от тебя. Попробуй ещё' : 'Заказ оформлен. Доставка: после зачётной недели') };
+        const no = ["Отказано. Руслан в студии.", "Отказано. Руслан «уже выехал» (нет).", "Отказано. Причина: диван держит его крепче, чем деканат.", "Отказано. Заявка передана подушке, ответ ожидается."]; let ni = 0;
+        $('go').onclick = () => { $('ans').textContent = ($('nm').value ? $('nm').value + ', ' : '') + no[ni++ % no.length] };
+    </script>
+</body>
+
+</html>
