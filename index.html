@@ -16,6 +16,7 @@
         <div class="n" id="pc">0%</div>
         <div class="bar"><i id="bi"></i></div>
         <p id="lt">Руслан просыпается…</p>
+        <button id="skipLoad" type="button">Пропустить</button>
     </div>
 
     <div class="tick"><span>СРОЧНО: Камазов замечен в университете (ложная тревога) ★ Староста: «я его не видел» ★ Новый
@@ -174,6 +175,8 @@
                 setTimeout(() => { $('load').style.display = 'none' }, 900)
             }
         }, 60);
+        $('skipLoad').onclick = () => { clearInterval(iv); $('load').style.display = 'none' };
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') $('skipLoad').click() });
         let skip = 247;
         setInterval(() => { skip++; $('skip').textContent = skip }, 4000);
         function toast(t) {
@@ -196,7 +199,7 @@
                 let t = c.currentTime;
                 for (let i = 0; i < 6; i++) {
                     const o = c.createOscillator(), g = c.createGain();
-                    o.type = 'square'; 
+                    o.type = 'square';
                     o.frequency.value = i % 2 ? 880 : 660;
                     g.gain.value = .06;
                     o.connect(g);
