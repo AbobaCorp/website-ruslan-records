@@ -4,6 +4,7 @@
     --ice: #dff3ff;
     --blue: #6fd0ff;
     --red: #ff2b3d;
+    --burgundy: #4e0e1e;
     --mut: #8a93a0;
     color-scheme: dark;
     box-sizing: border-box;
@@ -123,7 +124,7 @@ nav a:hover {
 }
 
 .tick {
-    background: var(--red);
+    background: var(--burgundy);
     color: #fff;
     overflow: hidden;
     white-space: nowrap;
